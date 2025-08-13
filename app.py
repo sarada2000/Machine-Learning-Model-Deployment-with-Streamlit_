@@ -2,21 +2,24 @@ import streamlit as st
 import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
+import os
 
 st.set_page_config(page_title="Titanic Survival Prediction", layout="wide", page_icon="🚢")
 
 # Load model once using joblib (correct for .joblib files)
 @st.cache_resource
 def load_model():
-    return joblib.load(r'C:\Users\user\Desktop\intelligent system\model.pkl')
+    return joblib.load(os.path.join(os.path.dirname(__file__), "model.pkl"))
+
 
 model = load_model()
 
 # Load data once
 @st.cache_data
 def load_data():
-    df = pd.read_csv(r'data\train.csv')
-    return df
+    return pd.read_csv(os.path.join(os.path.dirname(__file__), "data", "train.csv"))
+
+
 
 df = load_data()
 
